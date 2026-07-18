@@ -245,7 +245,7 @@ if user:
 
         # Memory
         elif choice == "3":
-            memory.memory_menu()
+            memory.memory()
 
 
         # Exit
