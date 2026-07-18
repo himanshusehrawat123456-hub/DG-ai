@@ -1,8 +1,22 @@
+
+# DG AI Login System
+
+
 def login():
-    username = input("Username: ")
-    password = input("Password: ")
+
+    username = input("Enter Username: ")
+
+    password = input("Enter Password: ")
+
 
     if username == "admin" and password == "1234":
-        print("Login Successful!")
+
+        print("Login Successful")
+
+        return True
+
     else:
-        print("Wrong username or password.")
+
+        print("Wrong Username or Password")
+
+        return False
