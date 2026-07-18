@@ -1,0 +1,16 @@
+[
+    {
+        "event_id": "EV001",
+        "event_type": "SYSTEM_START",
+        "description": "DG AI system started",
+        "status": "Success",
+        "time": "2026-07-18"
+    },
+    {
+        "event_id": "EV002",
+        "event_type": "USER_LOGIN",
+        "description": "User login attempt",
+        "status": "Success",
+        "time": "2026-07-18"
+    }
+]
