@@ -210,7 +210,7 @@ import login
 import calculator
 import todo
 import memory
-
+import command
 
 # Login System
 
@@ -227,7 +227,9 @@ if user:
         print("1. Calculator")
         print("2. Todo Manager")
         print("3. Memory")
-        print("4. Exit")
+        print("4. Command")
+        print("5. Exit")
+
 
 
         choice = input("Choose option: ")
@@ -247,9 +249,13 @@ if user:
         elif choice == "3":
             memory.memory()
 
+        # Command
+        elif choice == "4":
+            command.command()
+
 
         # Exit
-        elif choice == "4":
+        elif choice == "5":
             print("DG AI Closed")
             break
 
@@ -260,3 +266,6 @@ if user:
 
 else:
     print("Login Failed")
+    
+
+
