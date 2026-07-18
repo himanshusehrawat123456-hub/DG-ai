@@ -35,3 +35,13 @@ elif command == "bye":
     print("Goodbye! See you again.")
 else:
     print("Command not available.")
+favorite = input("What is your favorite color? ")
+
+if favorite == "red":
+    print("Red is a powerful color.")
+elif favorite == "blue":
+    print("Blue is a calm color.")
+elif favorite == "green":
+    print("Green represents nature.")
+else:
+    print("That's a nice color!")
