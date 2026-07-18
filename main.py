@@ -90,3 +90,31 @@ while True:
 
     else:
         print("DG AI: I don't understand that command yet.")
+print("========== DG AI MENU ==========")
+print("1. Say Hello")
+print("2. Calculator")
+print("3. Exit")
+
+choice = input("Choose an option: ")
+
+if choice == "1":
+    print("DG AI: Hello! Welcome.")
+
+elif choice == "2":
+    num1 = int(input("First Number: "))
+    num2 = int(input("Second Number: "))
+
+    print("Addition =", num1 + num2)
+    print("Subtraction =", num1 - num2)
+    print("Multiplication =", num1 * num2)
+
+    if num2 != 0:
+        print("Division =", num1 / num2)
+    else:
+        print("Cannot divide by zero.")
+
+elif choice == "3":
+    print("DG AI: Goodbye!")
+
+else:
+    print("Invalid Option.")
