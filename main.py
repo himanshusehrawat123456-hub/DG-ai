@@ -150,3 +150,17 @@ if password == "dgai123":
     print("Access Granted")
 else:
     print("Access Denied")
+from chat import chat
+
+print("===== DG AI =====")
+print("1. Chat")
+print("2. Exit")
+
+choice = input("Choose an option: ")
+
+if choice == "1":
+    chat()
+elif choice == "2":
+    print("Goodbye!")
+else:
+    print("Invalid choice.")
