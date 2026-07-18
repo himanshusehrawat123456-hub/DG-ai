@@ -7,3 +7,6 @@ def memory():
         file.write(name)
 
     print("Memory saved successfully.")
+def memory():
+    name = input("Enter your name: ")
+    print("Hello,", name)
