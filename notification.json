@@ -1,0 +1,18 @@
+[
+    {
+        "notification_id": "NT001",
+        "title": "DG AI Started",
+        "message": "System has started successfully",
+        "type": "SYSTEM",
+        "status": "Unread",
+        "time": "2026-07-18"
+    },
+    {
+        "notification_id": "NT002",
+        "title": "Welcome",
+        "message": "Welcome to DG AI Assistant",
+        "type": "USER",
+        "status": "Read",
+        "time": "2026-07-18"
+    }
+]
