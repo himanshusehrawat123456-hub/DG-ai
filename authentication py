@@ -1,0 +1,123 @@
+"""
+DG AI Version 1
+Authentication System
+
+Purpose:
+- User authentication foundation
+- Manage login verification
+
+Version: 1.0
+"""
+
+
+import datetime
+import hashlib
+
+
+
+class Authentication:
+    """
+    Handles user authentication.
+    """
+
+
+
+    def __init__(self):
+
+        self.users = {}
+
+        self.history = []
+
+
+
+    def create_user(self, username, password):
+        """
+        Create new user.
+        """
+
+        password_hash = hashlib.sha256(
+            password.encode()
+        ).hexdigest()
+
+
+        self.users[username] = password_hash
+
+
+        return True
+
+
+
+    def login(self, username, password):
+        """
+        Verify user login.
+        """
+
+        password_hash = hashlib.sha256(
+            password.encode()
+        ).hexdigest()
+
+
+        if username in self.users:
+
+            if self.users[username] == password_hash:
+
+                result = "Login Successful"
+
+            else:
+
+                result = "Wrong Password"
+
+        else:
+
+            result = "User Not Found"
+
+
+
+        self.history.append({
+
+            "username":
+            username,
+
+            "result":
+            result,
+
+            "time":
+            str(datetime.datetime.now())
+
+        })
+
+
+        return result
+
+
+
+    def get_history(self):
+        """
+        Return authentication history.
+        """
+
+        return self.history
+
+
+
+
+# Testing
+
+if __name__ == "__main__":
+
+
+    auth = Authentication()
+
+
+    auth.create_user(
+        "Himanshu",
+        "12345"
+    )
+
+
+    print(
+        auth.login(
+            "Himanshu",
+            "12345"
+        )
+    )
