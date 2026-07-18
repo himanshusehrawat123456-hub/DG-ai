@@ -17,3 +17,11 @@ else:
 age = input("What is your age? ")
 
 print("You are", age, "years old.")
+city = input("Which city do you live in? ")
+
+print("You live in", city)
+
+if city == "Delhi":
+    print("Welcome, Delhi user!")
+else:
+    print("Welcome to DG AI!")
