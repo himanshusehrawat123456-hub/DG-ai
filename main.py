@@ -142,3 +142,11 @@ elif operation == "/":
 
 else:
     print("Invalid operation.")
+print("===== DG AI Password Check =====")
+
+password = input("Enter password: ")
+
+if password == "dgai123":
+    print("Access Granted")
+else:
+    print("Access Denied")
