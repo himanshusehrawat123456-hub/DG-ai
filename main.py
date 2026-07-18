@@ -182,3 +182,25 @@ elif choice == "3":
     print("Goodbye!")
 else:
     print("Invalid choice.")
+from chat import chat
+from calculator import calculator
+from notes import notes
+
+print("===== DG AI =====")
+print("1. Chat")
+print("2. Calculator")
+print("3. Notes")
+print("4. Exit")
+
+choice = input("Choose an option: ")
+
+if choice == "1":
+    chat()
+elif choice == "2":
+    calculator()
+elif choice == "3":
+    notes()
+elif choice == "4":
+    print("Goodbye!")
+else:
+    print("Invalid choice.")
