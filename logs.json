@@ -1,0 +1,16 @@
+[
+    {
+        "log_id": "LOG001",
+        "level": "INFO",
+        "module": "SYSTEM",
+        "message": "DG AI initialized successfully",
+        "time": "2026-07-18"
+    },
+    {
+        "log_id": "LOG002",
+        "level": "INFO",
+        "module": "USER",
+        "message": "User session created",
+        "time": "2026-07-18"
+    }
+]
