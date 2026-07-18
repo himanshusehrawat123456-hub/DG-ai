@@ -240,7 +240,7 @@ if user:
 
         # Todo
         elif choice == "2":
-            todo.todo_menu()
+            todo.todo()
 
 
         # Memory
