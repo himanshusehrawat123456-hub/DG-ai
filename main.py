@@ -45,3 +45,18 @@ elif favorite == "green":
     print("Green represents nature.")
 else:
     print("That's a nice color!")
+print("===== DG AI =====")
+print("1. Say Hello")
+print("2. Tell Your Name")
+print("3. Exit")
+
+choice = input("Choose an option: ")
+
+if choice == "1":
+    print("Hello! Welcome to DG AI.")
+elif choice == "2":
+    print("I am DG AI.")
+elif choice == "3":
+    print("Goodbye!")
+else:
+    print("Invalid choice.")
