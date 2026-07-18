@@ -25,3 +25,13 @@ if city == "Delhi":
     print("Welcome, Delhi user!")
 else:
     print("Welcome to DG AI!")
+command = input("Enter command: ")
+
+if command == "time":
+    print("Time feature will be added soon.")
+elif command == "date":
+    print("Date feature will be added soon.")
+elif command == "bye":
+    print("Goodbye! See you again.")
+else:
+    print("Command not available.")
