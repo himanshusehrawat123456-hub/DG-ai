@@ -14,3 +14,6 @@ elif question == "your name":
     print("My name is DG AI.")
 else:
     print("Sorry, I don't understand.")
+age = input("What is your age? ")
+
+print("You are", age, "years old.")
