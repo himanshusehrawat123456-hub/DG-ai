@@ -118,3 +118,27 @@ elif choice == "3":
 
 else:
     print("Invalid Option.")
+print("===== DG AI Calculator =====")
+
+operation = input("Choose (+, -, *, /): ")
+
+num1 = int(input("Enter first number: "))
+num2 = int(input("Enter second number: "))
+
+if operation == "+":
+    print("Answer =", num1 + num2)
+
+elif operation == "-":
+    print("Answer =", num1 - num2)
+
+elif operation == "*":
+    print("Answer =", num1 * num2)
+
+elif operation == "/":
+    if num2 != 0:
+        print("Answer =", num1 / num2)
+    else:
+        print("Cannot divide by zero.")
+
+else:
+    print("Invalid operation.")
