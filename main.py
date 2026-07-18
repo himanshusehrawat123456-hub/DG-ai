@@ -204,3 +204,59 @@ elif choice == "4":
     print("Goodbye!")
 else:
     print("Invalid choice.")
+# DG AI Main File
+
+import login
+import calculator
+import todo
+import memory
+
+
+# Login System
+
+user = login.login()
+
+if user:
+
+    print("\nWelcome to DG AI")
+
+
+    while True:
+
+        print("\n--- DG AI MENU ---")
+        print("1. Calculator")
+        print("2. Todo Manager")
+        print("3. Memory")
+        print("4. Exit")
+
+
+        choice = input("Choose option: ")
+
+
+        # Calculator
+        if choice == "1":
+            calculator.calculator()
+
+
+        # Todo
+        elif choice == "2":
+            todo.todo_menu()
+
+
+        # Memory
+        elif choice == "3":
+            memory.memory_menu()
+
+
+        # Exit
+        elif choice == "4":
+            print("DG AI Closed")
+            break
+
+
+        else:
+            print("Invalid Choice")
+
+
+else:
+    print("Login Failed")
