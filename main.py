@@ -73,3 +73,20 @@ if num2 != 0:
     print("Division =", num1 / num2)
 else:
     print("Division by zero is not allowed.")
+print("========== DG AI ==========")
+
+while True:
+    command = input("You: ")
+
+    if command == "hello":
+        print("DG AI: Hello! How can I help you?")
+
+    elif command == "your name":
+        print("DG AI: My name is DG AI.")
+
+    elif command == "bye":
+        print("DG AI: Goodbye!")
+        break
+
+    else:
+        print("DG AI: I don't understand that command yet.")
