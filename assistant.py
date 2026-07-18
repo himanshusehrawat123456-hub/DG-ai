@@ -1,53 +1,66 @@
+
 # DG AI Assistant Core
 
-import chat
-import command
+import brain
 import calculator
 import todo
+import chat
+import command
 import memory
+import notes
 
 
 def assistant():
 
-    print("=== DG AI Assistant ===")
+    print("===================")
+    print("  DG AI Assistant  ")
+    print("===================")
 
 
     while True:
 
-        user_input = input("You: ")
+        user_input = input("\nYou: ")
 
 
-        if user_input == "calculator":
+        result = brain.process_command(user_input)
+
+
+        if result == "OPEN_CALCULATOR":
 
             calculator.calculator()
 
 
-        elif user_input == "todo":
+        elif result == "OPEN_TODO":
 
             todo.todo()
 
 
-        elif user_input == "chat":
+        elif result == "OPEN_CHAT":
 
             chat.chat()
 
 
-        elif user_input == "command":
+        elif result == "OPEN_COMMAND":
 
             command.command()
 
 
-        elif user_input == "memory":
+        elif result == "OPEN_MEMORY":
 
             memory.memory()
 
 
-        elif user_input == "exit":
+        elif result == "OPEN_NOTES":
 
-            print("DG AI Assistant Closed")
+            notes.notes()
+
+
+        elif result == "EXIT":
+
+            print("DG AI: Closing Assistant")
             break
 
 
         else:
 
-            print("DG AI: Command not found")
+            print("DG AI:", result)
