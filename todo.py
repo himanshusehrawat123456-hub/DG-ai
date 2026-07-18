@@ -10,6 +10,7 @@ def todo():
 # DG AI Todo System
 
 tasks = []
+completed_tasks = []
 
 def add_task():
     task = input("Enter your task: ")
@@ -54,6 +55,24 @@ def edit_task():
     else:
         print("Invalid task number")
 
+def complete_task():
+
+    show_tasks()
+
+    number = int(input("Enter task number completed: "))
+
+    if number <= len(tasks):
+
+        task = tasks.pop(number - 1)
+
+        completed_tasks.append(task)
+
+        print("Task completed successfully")
+
+    else:
+        print("Invalid task number")
+        
+
 
 while True:
 
@@ -62,7 +81,8 @@ while True:
     print("2. Show Tasks")
     print("3. Remove Task")
     print("4. Edit Task")
-    print("5. Back")
+    print("5. Complete Task")
+    print("6. Back")
 
     choice = input("Choose option: ")
 
@@ -79,8 +99,10 @@ while True:
         edit_task()
 
     elif choice == "5":
-        break
+        complete_task()
         
+    elif choice == "6":
+        break
 
     else:
         print("Invalid choice")
