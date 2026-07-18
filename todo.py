@@ -37,6 +37,23 @@ def remove_task():
     else:
         print("Invalid task number")
 
+def edit_task():
+
+    show_tasks()
+
+    number = int(input("Enter task number to edit: "))
+
+    if number <= len(tasks):
+
+        new_task = input("Enter new task: ")
+
+        tasks[number - 1] = new_task
+
+        print("Task updated successfully")
+
+    else:
+        print("Invalid task number")
+
 
 while True:
 
@@ -44,7 +61,8 @@ while True:
     print("1. Add Task")
     print("2. Show Tasks")
     print("3. Remove Task")
-    print("4. Exit")
+    print("4. Edit Task")
+    print("5. Back")
 
     choice = input("Choose option: ")
 
@@ -58,8 +76,11 @@ while True:
         remove_task()
 
     elif choice == "4":
-        print("DG AI Todo Closed")
+        edit_task()
+
+    elif choice == "5":
         break
+        
 
     else:
         print("Invalid choice")
