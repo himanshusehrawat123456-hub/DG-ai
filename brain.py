@@ -1,51 +1,21 @@
-# DG AI Brain System
+# brain.py - DG-AI Logic Engine
 
+def process(command):
+    cmd = command.strip().lower()
 
-def process_command(command):
+    # 1. Voice संबंधित बात समझने के लिए
+    if "voice" in cmd or "बोल" in cmd or "आवाज" in cmd:
+        print("[Brain] Voice System चालू हो रहा है...")
 
-    command = command.lower()
+    # 2. Save/Memory संबंधित बात समझने के लिए
+    elif "remember" in cmd or "याद" in cmd or "save" in cmd:
+        print("[Brain] Memory System को डेटा भेजा गया...")
 
+    # 3. Search संबंधित बात समझने के लिए
+    elif "search" in cmd or "khojo" in cmd or "गूगल" in cmd:
+        print("[Brain] Web Search Engine शुरू हो रहा है...")
 
-    # Calculator
-    if "calculator" in command or "calculate" in command:
-        return "OPEN_CALCULATOR"
-
-
-    # Todo
-    elif "todo" in command or "task" in command:
-        return "OPEN_TODO"
-
-
-    # Chat
-    elif "chat" in command or "talk" in command:
-        return "OPEN_CHAT"
-
-
-    # Command
-    elif "command" in command:
-        return "OPEN_COMMAND"
-
-
-    # Memory
-    elif "memory" in command or "remember" in command:
-        return "OPEN_MEMORY"
-
-
-    # Notes
-    elif "note" in command or "notes" in command:
-        return "OPEN_NOTES"
-
-
-    # Greeting
-    elif "hello" in command or "hi" in command:
-        return "Hello, I am DG AI"
-
-
-    # Exit
-    elif "exit" in command or "close" in command:
-        return "EXIT"
-
-
-    # Unknown
+    # 4. अगर कोई मैच न मिले
     else:
-        return "I am still learning this command"
+        print(f"[Brain] '{command}' कमांड पर काम चल रहा है...")
+        
