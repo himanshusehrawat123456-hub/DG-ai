@@ -1,54 +1,53 @@
 import streamlit as st
-import requests
+import google.generativeai as genai
 
-st.title("मेरा स्मार्ट AI चैटबॉट 🤖")
+st.set_page_config(page_title="मेरा स्मार्ट AI चैटबॉट", page_icon="🤖")
 
-# Hugging Face API सेटिंग्स (यहाँ आप अपना HF टोकन डाल सकते हैं)
-API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
+st.title("🤖 मेरा स्मार्ट AI चैटबॉट")
 
-# अगर आपके पास Hugging Face का टोकन है, तो यहाँ डालें या Streamlit secrets से लें
-# सुरक्षा के लिए आप इसे सीधे यहाँ लिख सकते हैं या st.secrets का इस्तेमाल कर सकते हैं
-HF_TOKEN = st.text_input("अपना Hugging Face Token (API Key) यहाँ डालें:", type="password")
+# यूजर से Gemini API Key इनपुट कराना
+api_key = st.text_input("अपनी Google Gemini API Key यहाँ डालें:", type="password")
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+if not api_key:
+    st.warning("कृपया ऐप को चलाने के लिए ऊपर अपनी Gemini API Key दर्ज करें। (आप इसे Google AI Studio से मुफ़्त ले सकते हैं)")
+else:
+    # Gemini को कॉन्फ़िगर करना
+    genai.configure(api_key=api_key)
+    
+    # मॉडल सेट करना (सबसे बेहतरीन और फ्री gemini-1.5-flash मॉडल)
+    model = genai.GenerativeModel("gemini-1.5-flash")
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
 
-if prompt := st.chat_input("अब अपना असली सवाल पूछें..."):
-    if not HF_TOKEN:
-        st.warning("कृपया पहले ऊपर दिए गए बॉक्स में अपना Hugging Face Token दर्ज करें!")
-    else:
+    # पुरानी चैट दिखाना
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    # यूजर का नया सवाल
+    if prompt := st.chat_input("अपना सवाल यहाँ पूछें..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # Hugging Face API को रिक्वेस्ट भेजना
-        headers = {"Authorization": f"Bearer {HF_TOKEN}"}
-        payload = {"inputs": prompt}
-
+        # AI से जवाब मंगाना
         with st.chat_message("assistant"):
-            with st.spinner("सोच रहा हूँ..."):
+            with st.spinner("AI सोच रहा है..."):
                 try:
-                    response = requests.post(API_URL, headers=headers, json=payload)
-                    result = response.json()
+                    # पुरानी चैट हिस्ट्री को साथ भेजना ताकि बातचीत सही से हो सके
+                    chat_history = [
+                        {"role": m["role"] if m["role"] == "user" else "model", "parts": [m["content"]]}
+                        for m in st.session_state.messages[:-1]
+                    ]
                     
-                    if isinstance(result, list) and len(result) > 0:
-                        bot_reply = result[0].get("generated_text", "क्षमा करें, मैं समझ नहीं पाया।")
-                        # कभी-कभी मॉडल पूरा प्रॉम्प्ट भी साथ में लौटा देता है, उसे साफ़ कर सकते हैं
-                        if bot_reply.startswith(prompt):
-                            bot_reply = bot_reply[len(prompt):].strip()
-                    elif isinstance(result, dict) and "error" in result:
-                        bot_reply = f"एरर: {result['error']}"
-                    else:
-                        bot_reply = "सर्वर से सही जवाब नहीं मिला।"
+                    chat = model.start_chat(history=chat_history)
+                    response = chat.send_message(prompt)
                     
+                    bot_reply = response.text
                     st.markdown(bot_reply)
+                    
                     st.session_state.messages.append({"role": "assistant", "content": bot_reply})
                 except Exception as e:
-                    st.error(f"कनेक्शन में दिक्कत आई: {e}")
+                    st.error(f"त्रुटि (Error): {e}")
                     
-        
-  
