@@ -1,78 +1,93 @@
-"""
-DG AI - System Manager
-"""
+import os
+import sys
+import importlib
+import time
 
-class SystemManager:
-
+class DGAIController:
     def __init__(self):
-        self.systems = []
+        self.modules = {}
+        self.project_root = os.path.dirname(os.path.abspath(__file__))
 
-    def register(self, name):
-        self.systems.append(name)
-        print(f"[OK] {name} Registered")
+    def load_all_modules(self):
+        """Directory से सभी Python मॉड्यूल को लोड करता है"""
+        print("=" * 45)
+        print("          INITIALIZING DG-AI SYSTEM          ")
+        print("=" * 45)
 
-    def initialize(self):
-        print("\nInitializing DG AI Systems...\n")
+        files = os.listdir(self.project_root)
+        
+        # जिन फ़ाइलों को ऑटो-लोड नहीं करना है उनकी लिस्ट
+        ignore_list = ['main.py', '__init__.py', 'config.json', 'user.json']
 
-        for system in self.systems:
-            print(f"Loading {system}...")
+        for file_name in sorted(files):
+            if file_name.endswith('.py') and file_name not in ignore_list:
+                module_name = file_name[:-3]
+                
+                # 'test_' फ़ाइलों को Skip करें
+                if module_name.startswith('test_'):
+                    continue
 
-        print("\nAll Systems Loaded Successfully")
+                try:
+                    # Dynamic import
+                    module = importlib.import_module(module_name)
+                    self.modules[module_name] = module
+                    
+                    display_name = module_name.replace('_', ' ').title()
+                    print(f"Loading {display_name}...")
+                    time.sleep(0.02)
+                except Exception as e:
+                    print(f"[!] Error loading {module_name}: {e}")
 
+        print("\n[✓] All Systems Loaded Successfully")
+        print("=" * 45)
 
-system_manager = SystemManager()
+    def process_command(self, user_command):
+        """यूजर के इनपुट को प्रोसेस करना"""
+        cmd = user_command.strip().lower()
 
+        if not cmd:
+            return
 
-def register_core_systems():
+        if cmd in ['exit', 'quit', 'shutdown']:
+            print("DG-AI shutting down... Goodbye!")
+            sys.exit(0)
 
-    system_manager.register("Event System")
-    system_manager.register("Settings System")
-    system_manager.register("Memory System")
-    system_manager.register("Security System")
-    system_manager.register("Automation System")
-    system_manager.register("API System")
+        elif cmd == 'help':
+            print("\nAvailable Core Commands:")
+            print(" - status : दिखाता है कितने मॉड्यूल एक्टिव हैं")
+            print(" - list   : सभी लोड हुए मॉड्यूल्स की सूची")
+            print(" - exit   : AI सिस्टम बंद करने के लिए\n")
 
-    system_manager.register("Analytics System")
-    system_manager.register("Assistant System")
-    system_manager.register("Authentication System")
-    system_manager.register("Backup System")
-    system_manager.register("Cache System")
-    system_manager.register("Command System")
-    system_manager.register("Communication System")
-    system_manager.register("Configuration System")
-    system_manager.register("Database System")
-    system_manager.register("Data System")
-    system_manager.register("Device System")
-    system_manager.register("Document System")
-    system_manager.register("Email System")
-    system_manager.register("File System")
-    system_manager.register("Image System")
-    system_manager.register("Knowledge System")
-    system_manager.register("Login System")
-    system_manager.register("Media System")
-    system_manager.register("Monitoring System")
-    system_manager.register("Network System")
-    system_manager.register("Notification System")
-    system_manager.register("Permission System")
-    system_manager.register("Resource Management")
-    system_manager.register("Scheduler System")
-    system_manager.register("Search System")
-    system_manager.register("Task System")
-    system_manager.register("Translation System")
-    system_manager.register("Update System")
-    system_manager.register("User System")
-    system_manager.register("Video System")
-    system_manager.register("Voice System")
-    system_manager.register("Workflow System")
+        elif cmd == 'status':
+            print(f"\n[System Status] Active Modules: {len(self.modules)}\n")
 
+        elif cmd == 'list':
+            print("\nLoaded Modules:")
+            for mod in sorted(self.modules.keys()):
+                print(f" - {mod}")
+            print()
 
-def start():
+        else:
+            print(f"\n[DG-AI Core] Processing instruction: '{user_command}'...")
+            if 'brain' in self.modules and hasattr(self.modules['brain'], 'process'):
+                self.modules['brain'].process(user_command)
+            else:
+                print("Execution complete.\n")
 
-    register_core_systems()
-    system_manager.initialize()
-
-def main():
-    start()
+    def start_cli(self):
+        """Terminal User Interface (CLI) Loop"""
+        self.load_all_modules()
+        print("\nWelcome to DG-AI Interface! Type 'help' for options, 'exit' to quit.\n")
+        
+        while True:
+            try:
+                user_input = input("DG-AI > ")
+                self.process_command(user_input)
+            except KeyboardInterrupt:
+                print("\nShutting down DG-AI...")
+                break
 
 if __name__ == "__main__":
-    main()
+    app = DGAIController()
+    app.start_cli()
+    self.modules
