@@ -70,3 +70,9 @@ def start():
 
     register_core_systems()
     system_manager.initialize()
+
+def main():
+    start()
+
+if __name__ == "__main__":
+    main()
