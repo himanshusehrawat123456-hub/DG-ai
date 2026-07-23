@@ -49,3 +49,10 @@ def initialize_core():
     print("✓ API System Ready")
 
     print("✓ Core Initialization Complete")
+initialize()
+
+initialize_core()
+
+initialize_services()
+
+print("\nDG AI Ready")
