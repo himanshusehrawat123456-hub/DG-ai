@@ -1,7 +1,7 @@
 import streamlit as st
 from google import genai
 
-st.set_page_config(page_title="मेरा स्मार्ट AI चैटबॉट", page_icon="🤖")
+st.set_page_config(page_title="मेरा स्मार्ट AI चैटबॉ", page_icon="🤖")
 st.title("🤖 मेरा स्मार्ट AI चैटबॉट")
 
 api_key = st.text_input("अपनी Google Gemini API Key यहाँ डालें:", type="password")
@@ -26,7 +26,6 @@ else:
 
             with st.chat_message("assistant"):
                 with st.spinner("AI सोच रहा है..."):
-                    # यहाँ एकदम सही और चालू मॉडल का नाम है
                     response = client.models.generate_content(
                         model='gemini-2.0-flash',
                         contents=prompt,
@@ -34,7 +33,7 @@ else:
                     bot_reply = response.text
                     st.markdown(bot_reply)
                     st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-                    
+
     except Exception as e:
         st.error(f"त्रुटि (Error): {e}")
-      
+        
