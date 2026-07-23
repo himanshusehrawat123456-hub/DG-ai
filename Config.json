@@ -1,9 +1,9 @@
-{
-    "ai_name": "DG AI",
-    "version": "1.0",
-    "mode": "Development",
-    "language": "Hindi-English",
-    "system_status": "Active",
-    "debug_mode": true,
-    "created_by": "Himanshu"
-}
+# config.py
+
+APP_NAME = "DG-AI"
+VERSION = "1.0.0"
+AUTHOR = "DG Developer"
+
+# भविष्य में अगर API Keys जोड़नी हों तो यहाँ रख सकते हैं
+API_KEY = ""
+DEBUG_MODE = True
