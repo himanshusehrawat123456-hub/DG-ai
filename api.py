@@ -1,60 +1,29 @@
-# DG AI API System
+import streamlit as st
 
-import json
+# ऐप का टाइटल
+st.title("मेरा AI चैटबॉट 🤖")
 
+# चैट की हिस्ट्री (history) को सेव रखने के लिए
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-def save_api_key():
+# पुरानी चैट को स्क्रीन पर दिखाना
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-    key = input("Enter API Key: ")
+# यूजर से इनपुट लेना (नीचे चैट बॉक्स)
+if prompt := st.chat_input("यहाँ अपना सवाल लिखें..."):
+    # यूजर का मैसेज जोड़ें और दिखाएं
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
-
-    data = {
-
-        "api_key": key
-
-    }
-
-
-    file = open("api_config.json", "w")
-
-    json.dump(data, file)
-
-    file.close()
-
-
-    print("API Key Saved")
-
-
-
-def load_api_key():
-
-    try:
-
-        file = open("api_config.json", "r")
-
-        data = json.load(file)
-
-        file.close()
-
-
-        return data["api_key"]
-
-
-    except:
-
-        return None
-
-
-
-def connect_api():
-
-    api_key = load_api_key()
-
-
-    if api_key:
-
-        print("API Connection Ready")
-
-    else:
-
-        print("API Key Not Found")
+    # बॉट का जवाब (आप यहाँ अपनी AI मॉडल या API का इस्तेमाल कर सकते हैं)
+    response = f"आपने कहा: {prompt}"
+    
+    # बॉट का जवाब जोड़ें और दिखाएं
+    st.session_state.messages.append({"role": "assistant", "content": response})
+    with st.chat_message("assistant"):
+        st.markdown(response)
+        
