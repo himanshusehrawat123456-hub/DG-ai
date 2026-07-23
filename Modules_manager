@@ -1,0 +1,114 @@
+"""
+DG AI - Module Manager
+Version: 1.0
+
+यह file DG AI के सभी modules को manage करेगी।
+"""
+
+import traceback
+
+
+class ModuleManager:
+
+    def __init__(self):
+        self.modules = {}
+        self.status = {}
+
+    # Module Register करना
+    def register_module(self, name, module):
+        try:
+            self.modules[name] = module
+            self.status[name] = "registered"
+            print(f"[REGISTERED] {name}")
+
+        except Exception:
+            print(f"[ERROR REGISTERING] {name}")
+            traceback.print_exc()
+
+
+    # सभी modules initialize करना
+    def initialize_all(self):
+
+        for name, module in self.modules.items():
+
+            try:
+                if hasattr(module, "initialize"):
+                    module.initialize()
+
+                self.status[name] = "initialized"
+                print(f"[INITIALIZED] {name}")
+
+            except Exception:
+                self.status[name] = "failed"
+                print(f"[FAILED] {name}")
+                traceback.print_exc()
+
+
+
+    # सभी modules start करना
+    def start_all(self):
+
+        for name, module in self.modules.items():
+
+            try:
+
+                if hasattr(module, "start"):
+                    module.start()
+
+                self.status[name] = "running"
+                print(f"[RUNNING] {name}")
+
+
+            except Exception:
+
+                self.status[name] = "error"
+                print(f"[ERROR] {name}")
+                traceback.print_exc()
+
+
+
+    # एक module को start करना
+    def start_module(self, name):
+
+        if name in self.modules:
+
+            try:
+                self.modules[name].start()
+                self.status[name] = "running"
+
+            except Exception:
+                traceback.print_exc()
+
+        else:
+            print("Module not found:", name)
+
+
+
+    # Module बंद करना
+    def stop_module(self, name):
+
+        if name in self.modules:
+
+            try:
+
+                if hasattr(self.modules[name], "stop"):
+                    self.modules[name].stop()
+
+                self.status[name] = "stopped"
+
+            except Exception:
+                traceback.print_exc()
+
+
+
+    # सभी modules की जानकारी
+    def get_status(self):
+
+        return self.status
+
+
+
+    # सभी modules की list
+    def list_modules(self):
+
+        return list(self.modules.keys())
