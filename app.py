@@ -1,43 +1,30 @@
-import os
-import gradio as gr
-from huggingface_hub import InferenceClient
+import streamlit as st
 
-# GitHub Environment Secret / Space Variable से सुरक्षित रूप से टोकन पढ़ना
-HF_TOKEN = os.getenv("HF_TOKEN")
+# ऐप का टाइटल
+st.title("मेरा AI चैटबॉट 🤖")
 
-# Hugging Face API Client चालू करना
-client = InferenceClient(token=HF_TOKEN)
+# चैट की हिस्ट्री को सेव रखने के लिए
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-def chat_with_qwen(message, history):
-    messages = []
+# पुरानी चैट को स्क्रीन पर दिखाना
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# यूजर से इनपुट लेना (चैट बॉक्स)
+if prompt := st.chat_input("यहाँ अपना सवाल लिखें..."):
+    # यूजर का मैसेज जोड़ें और दिखाएं
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # बॉट का जवाब
+    response = f"आपने कहा: {prompt}"
     
-    # पुरानी बात याद रखने के लिए (Chat History)
-    for user_msg, ai_msg in history:
-        messages.append({"role": "user", "content": user_msg})
-        messages.append({"role": "assistant", "content": ai_msg})
-    
-    # नया मैसेज जोड़ना
-    messages.append({"role": "user", "content": message})
-
-    try:
-        # Qwen 2.5 72B Instruct मॉडल को कॉल करना
-        response = client.chat_completion(
-            model="Qwen/Qwen2.5-72B-Instruct",
-            messages=messages,
-            max_tokens=500,
-            temperature=0.7
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        return f"Error: {str(e)}"
-
-# Gradio Chatbot Interface
-demo = gr.ChatInterface(
-    fn=chat_with_qwen,
-    title="🤖 Qwen 2.5 AI Assistant",
-    description="GitHub और Hugging Face Spaces पर कनेक्टेड Qwen2.5-72B AI मॉडल",
-)
-
-if __name__ == "__main__":
-    demo.launch()
+    # बॉट का जवाब जोड़ें और दिखाएं
+    st.session_state.messages.append({"role": "assistant", "content": response})
+    with st.chat_message("assistant"):
+        st.markdown(response)
+        
   
