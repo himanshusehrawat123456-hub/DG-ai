@@ -6,10 +6,6 @@ from google import genai
 from google.genai import types
 from PIL import Image
 import io
-from fastapi import FastAPI, Request
-import threading
-import uvicorn
-import json
 
 # 1. Page Configuration & Professional Styling
 st.set_page_config(
@@ -202,37 +198,6 @@ if st.sidebar.button("🗑️ Clear Command History"):
 
 st.sidebar.markdown("---")
 st.sidebar.info("🚀 **Omni Super App v6.2**\nSafe Error-Handling & Fallback Mode Enabled.")
-# ==========================================
-# मोबाइल कंपेनियन ऐप और हार्डवेयर सिंक के लिए नई चीजें
-# ==========================================
-from fastapi import FastAPI, Request
-import threading
-import uvicorn
 
-# बैकएंड API सर्वर राउट्स
-api_app = FastAPI()
-
-@api_app.post("/api/sync-location")
-async def sync_location(request: Request):
-    data = await request.json()
-    latitude = data.get("latitude")
-    longitude = data.get("longitude")
-    print(f"Live Location Received -> Lat: {latitude}, Long: {longitude}")
-    return {"status": "success", "message": "Location updated in Command Center"}
-
-@api_app.post("/api/sync-calls")
-async def sync_calls(request: Request):
-    data = await request.json()
-    call_history = data.get("calls", [])
-    print(f"Synced {len(call_history)} call logs successfully.")
-    return {"status": "success", "calls_received": len(call_history)}
-
-def run_fastapi():
-    uvicorn.run(api_app, host="0.0.0.0", port=8000)
-
-# अगर आप इसे बैकग्राउंड में चलाना चाहते हैं, तो नीचे दिए गए कमेंट को हटा दें:
-# if "fastapi_started" not in st.session_state:
-#     threading.Thread(target=run_fastapi, daemon=True).start()
-#     st.session_state["fastapi_started"] = True
 
                               
