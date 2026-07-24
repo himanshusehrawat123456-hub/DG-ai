@@ -1,5 +1,3 @@
-
-                
 import streamlit as st
 from api import configure_gemini, get_gemini_response
 
